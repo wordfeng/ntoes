@@ -34,8 +34,6 @@ public class GatewayApplication {
 
     private static void dumpSystemInfo(PrintWriter out) {
         out.println();
-        out.println("NettyGateway 1.0,Build 2018/4/18,Author:tangjie");
-        out.println("https://github.com/tang-jie/NettyGateway");
         out.print(JVM_INFO);
         out.print(HOST_INFO);
         out.println("PORT : " + PORT);
@@ -44,15 +42,13 @@ public class GatewayApplication {
     }
 
     public static void main(String[] args) throws Exception {
-//		ConfigurableApplicationContext context = SpringApplication.run(GatewayApplication.class, args);
         ApplicationContext context = SpringApplication.run(GatewayApplication.class, args);
-//		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:netty-gateway.xml");
         PORT = ((GatewayOptions) context.getBean("gatewayOptions")).getGatewayPort();
 
         dumpSystemInfo(new PrintWriter(System.out));
 
-        EventLoopGroup bossGroup = new NioEventLoopGroup(1, new DefaultThreadFactory("netty.gateway.boss"));//, Thread.MAX_PRIORITY
-        EventLoopGroup workerGroup = new NioEventLoopGroup(GATEWAY_OPTION_PARALLEL, new DefaultThreadFactory("netty.gateway.worker"));//, Thread.MAX_PRIORITY
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1, new DefaultThreadFactory("netty.gateway.boss"));
+        EventLoopGroup workerGroup = new NioEventLoopGroup(GATEWAY_OPTION_PARALLEL, new DefaultThreadFactory("netty.gateway.worker"));
 
         try {
             ServerBootstrap b = new ServerBootstrap();
@@ -70,8 +66,6 @@ public class GatewayApplication {
                     .childOption(NioChannelOption.SO_KEEPALIVE, true);
             ChannelFuture sync = b.bind(PORT).sync();
             sync.channel().closeFuture().sync();
-//            Channel ch = b.bind(PORT).channel();
-//            ch.closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
