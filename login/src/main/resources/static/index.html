@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/login/webjars/jquery/3.1.0/jquery.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/cookieconsent/3.1.1/cookieconsent.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+<!--<div id="name"></div>-->
+<br/>
+扫码登陆：<br/>
+<img id="img"/>
+<script>
+    function setCookie(name, value) {
+        var Days = 30;
+        var exp = new Date();
+        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 30);
+        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+    }
+
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        arr = document.cookie.match(reg);
+        if (arr)
+            return unescape(arr[2]);
+        else
+            return null;
+    }
+
+    function logOut() {
+        console.log("log out")
+        setCookie("name", null);
+    }
+
+    const uuid = Math.random();
+
+
+    function getQRCode() {
+        $.ajax({
+            url: `/login/qrcode?uuid=${uuid}`,
+            type: "GET",
+            async: true,
+            success: function (data) {
+                // console.log(window.URL.createObjectURL(data))
+                document.querySelector('img').src = data;
+                console.log($('img'));
+
+            }
+        });
+    }
+
+    function login() {
+        $.ajax({
+            url: `/login/wait?uuid=${uuid}`,
+            type: "GET",
+            async: false,
+            success: function (data) {
+                if(data)
+                    alert("登陆成功");
+                else
+                    login();
+            }
+        })
+    }
+
+    (function init() {
+        $("#del").click(function () {
+            logOut();
+        })
+
+        $("#login").click(function () {
+            new Promise(() => login());
+        })
+
+        // setCookie("name","user")
+        const name = getCookie("name")
+        if (name) {
+            $("#name").text("name: " + name);
+        }
+        getQRCode();
+
+        setTimeout(() => login(), 1000);
+    })();
+
+</script>
+
+</body>
+</html>
