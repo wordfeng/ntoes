@@ -61,7 +61,8 @@ public class TestMultipartFormdataApplication {
     }
 
     /**
-     * 这种方式需要自己写类型判断，使用{@link MVCConfigurger#addReturnValueHandlers}替代
+     * 这种方式需要自己写类型判断, 排除静态资源，使用{@link MVCConfigurger#addReturnValueHandlers}替代
+     * server.servlet.context-path不在匹配串里，规则需要去掉前缀
      */
 //    @Order(Ordered.LOWEST_PRECEDENCE - 1)
 //    @Bean
