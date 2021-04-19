@@ -9,6 +9,6 @@
 | questionsValidation | 一些问题验证记录，内容可能会移到其他模块里或者直接删除 |
 | security            | 安全相关                                               |
 | serialize           | 序列化                                                 |
-| servlet             | servlet                                                |
+| servlet             | servlet && spring mvc && socket相关                    |
 | utils               | 通用工具方法                                           |
 
