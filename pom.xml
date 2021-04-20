@@ -26,6 +26,8 @@
         <module>questionsValidation</module>
         <module>login</module>
         <module>persistent-layer</module>
+        <module>middleware</module>
+        <module>zookeeper</module>
     </modules>
     <dependencies>
         <!--     基础公共包   -->
