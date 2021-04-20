@@ -1,5 +1,8 @@
 package org.feng.async.performance;
 
+/**
+ * 伪共享
+ */
 public class FalseSharing implements Runnable {
     public final static long ITERATIONS = 500L * 1000L * 100L;
     private int arrayIndex = 0;
