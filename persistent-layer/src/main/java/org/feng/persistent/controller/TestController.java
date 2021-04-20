@@ -18,6 +18,8 @@ public class TestController {
     @Resource
     private TestService testService;
 
+    //    localhost:8080/test/all?tenant?=q
+    //    具体数据见resources/test.sql
     @GetMapping("all")
     public List<Test> selectOne(String tenant) {
         //方便验证问题 实际不能在这里这样做
