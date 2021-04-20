@@ -25,6 +25,7 @@
         <module>logging</module>
         <module>questionsValidation</module>
         <module>login</module>
+        <module>persistent-layer</module>
     </modules>
     <dependencies>
         <!--     基础公共包   -->

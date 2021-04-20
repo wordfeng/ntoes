@@ -6,6 +6,7 @@
 | k8s-docker          | 镜像一套开发流程                                       |
 | logging             | 日志                                                   |
 | netty-gateway       | 网关                                                   |
+| persistent-layer    | 持久层处理（mybatis统一sql处理等）                     |
 | questionsValidation | 一些问题验证记录，内容可能会移到其他模块里或者直接删除 |
 | security            | 安全相关                                               |
 | serialize           | 序列化                                                 |
