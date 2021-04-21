@@ -1,0 +1,14 @@
+server:
+  port: 9001  # 服务端口号  http://localhost:9001/userinfo/{id}
+spring:
+  application:
+    name: consumer-service  # 服务名称，默认也是在微服务中注册的微服务ID
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848  # 指定Nacos注册中心的地址
+      username: nacos # Nacos服务器的用户名，默认为 nacos
+      password: nacos # Nacos服务器的密码，默认为 nacos
+
+logging:
+  level:
+    root: debug # 为了方便看日志，只在开发时开启，正式不要开

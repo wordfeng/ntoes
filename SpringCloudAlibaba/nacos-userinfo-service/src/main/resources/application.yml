@@ -1,0 +1,10 @@
+server:
+  port: 8001  # 服务端口号
+spring:
+  application:
+    name: userinfo-service  #既是消费者也是生产者
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      username: nacos
+      password: nacos
