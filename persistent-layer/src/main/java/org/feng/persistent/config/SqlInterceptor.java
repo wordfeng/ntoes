@@ -2,13 +2,17 @@ package org.feng.persistent.config;
 
 import cn.hutool.core.util.ReflectUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Signature;
+import org.apache.ibatis.session.ResultHandler;
+import org.apache.ibatis.session.RowBounds;
 import org.feng.persistent.holder.UserContextHolder;
 
 import java.sql.Connection;
@@ -19,7 +23,8 @@ import java.util.Properties;
         @Signature(method = "prepare", type = StatementHandler.class, args = {Connection.class, Integer.class}),
 //        @Signature(
 //        type = Executor.class,
-//        method = "query", //query无法拦截
+//        method = "query", //query拦截时需要排除pagehelper插件, 或者使用SqlSessionFactoryBuilder.build(myConfig)
+//                         // https://mybatis.org/mybatis-3/zh/configuration.html#plugins
 //        args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
 })
 public class SqlInterceptor implements Interceptor {
