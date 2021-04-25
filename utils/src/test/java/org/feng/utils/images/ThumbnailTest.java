@@ -1,6 +1,7 @@
 package org.feng.utils.images;
 
 import lombok.extern.slf4j.Slf4j;
+import org.feng.utils.SpringbootTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.ResourceUtils;
 
+import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -18,10 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @Slf4j
-@ContextConfiguration
-@SpringBootConfiguration
-@SpringBootTest
-public class ThumbnailTest {
+public class ThumbnailTest extends SpringbootTest {
 
     @Test
     void test() throws IOException, InterruptedException {
