@@ -20,6 +20,8 @@
         <module>nacos-username-service</module>
         <module>nacos-userconsumer</module>
         <module>nacos-userinfo-service</module>
+        <module>auth</module>
+        <module>message-queue</module>
     </modules>
     <properties>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
@@ -55,9 +57,29 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-stream-dependencies</artifactId>
+                <version>Horsham.SR8</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
 

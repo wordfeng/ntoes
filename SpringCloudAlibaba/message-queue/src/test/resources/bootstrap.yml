@@ -1,0 +1,12 @@
+spring:
+  rabbitmq:
+    port: 5672
+    username: feng
+    password: feng
+    addresses: 127.0.0.1
+    template:
+      retry:
+        enabled: true
+        initial-interval: 10000ms
+        max-interval: 30000ms
+        multiplier: 2 # 10000ms重试后失败 乘以 2 如果还是失败 在乘以2 一直往下去 但是不会大于30000ms
