@@ -7,11 +7,12 @@ import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 
+import java.nio.ByteBuffer;
 import java.util.concurrent.ThreadFactory;
 
 public class DisruptorTest {
     public static void main(String[] args) throws Exception {
-        // 队列中的元素
+        // 队列中的元素  生产者生产的对象
         class Element {
 
             private int value;
@@ -42,7 +43,7 @@ public class DisruptorTest {
             }
         };
 
-        // 处理Event的handler
+        // 处理Event的handler  消费Element
         EventHandler<Element> handler = new EventHandler<Element>() {
             @Override
             public void onEvent(Element element, long sequence, boolean endOfBatch) {
@@ -54,11 +55,12 @@ public class DisruptorTest {
         // 阻塞策略
         BlockingWaitStrategy strategy = new BlockingWaitStrategy();
 
-        // 指定RingBuffer的大小
+        // 指定RingBuffer的大小 2的n次方
         int bufferSize = 16;
 
         // 创建disruptor，采用单生产者模式
         Disruptor<Element> disruptor = new Disruptor<>(factory, bufferSize, threadFactory, ProducerType.SINGLE, strategy);
+//        Disruptor<Element> disruptor = new Disruptor<>(Element::new, bufferSize, threadFactory);
 
         // 设置EventHandler
         disruptor.handleEventsWith(handler);
@@ -68,6 +70,8 @@ public class DisruptorTest {
 
         RingBuffer<Element> ringBuffer = disruptor.getRingBuffer();
 
+        // 生产Element
+//        ByteBuffer bb = ByteBuffer.allocate(8);
         for (int l = 0; true; l++) {
             // 获取下一个可用位置的下标
             long sequence = ringBuffer.next();
@@ -80,7 +84,9 @@ public class DisruptorTest {
             } finally {
                 ringBuffer.publish(sequence);
             }
-            Thread.sleep(10);
+            Thread.sleep(100);
+//            bb.putInt(0, l);
+//            ringBuffer.publishEvent((event, sequence, buffer) -> event.set(buffer.getInt(0)), bb);
         }
     }
 }
